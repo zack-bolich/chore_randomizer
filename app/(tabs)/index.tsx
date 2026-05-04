@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button, ScrollView, Text, View } from "react-native";
-import { choreAreas, generateSchedule } from "../../lib/choreGenerator";
+import { generateSchedule } from "../../lib/choreGenerator";
 
 export default function Index() {
   const [schedule, setSchedule] = useState<any>({});
 
   const people = ["Zack", "Person 2", "Person 3"];
+  const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
   const handleGenerate = () => {
     const result = generateSchedule(people);
@@ -14,47 +15,74 @@ export default function Index() {
 
   return (
     <ScrollView style={{ padding: 20, backgroundColor: "white" }}>
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10, color: "black" }}>
+      <Text
+        style={{
+          fontSize: 24,
+          fontWeight: "bold",
+          marginBottom: 10,
+          color: "black",
+        }}
+      >
         Weekly Chore Schedule
       </Text>
 
       <Button title="Generate Chores" onPress={handleGenerate} />
 
       {Object.keys(schedule).length > 0 && (
-  <>
-    {/* UPSTAIRS */}
-    <Text style={{ fontSize: 20, marginTop: 20, fontWeight: "bold" }}>
-      Upstairs
-    </Text>
-
-    {Object.keys(schedule).map((day) => (
-      <View key={day} style={{ marginBottom: 10 }}>
-        <Text style={{ fontWeight: "bold" }}>{day}</Text>
-        {choreAreas.upstairs.map((area) => (
-          <Text key={area}>
-            {area}: {schedule[day][area]}
+        <>
+          <Text style={{ fontSize: 20, marginTop: 20, fontWeight: "bold", color: "black" }}>
+            Upstairs
           </Text>
-        ))}
-      </View>
-    ))}
 
-    {/* DOWNSTAIRS */}
-    <Text style={{ fontSize: 20, marginTop: 20, fontWeight: "bold" }}>
-      Downstairs
-    </Text>
+          <View style={{ borderWidth: 1, marginTop: 10 }}>
+            <View style={{ flexDirection: "row", backgroundColor: "#ddd" }}>
+              <Text style={{ flex: 1, padding: 5, color: "black" }}>Area</Text>
+              {days.map((d) => (
+                <Text key={d} style={{ flex: 1, padding: 5, color: "black" }}>
+                  {d.slice(0, 3)}
+                </Text>
+              ))}
+            </View>
 
-    {Object.keys(schedule).map((day) => (
-      <View key={day} style={{ marginBottom: 10 }}>
-        <Text style={{ fontWeight: "bold" }}>{day}</Text>
-        {choreAreas.downstairs.map((area) => (
-          <Text key={area}>
-            {area}: {schedule[day][area]}
+            {["Kitchen", "Bathroom", "Living Room"].map((area) => (
+              <View key={area} style={{ flexDirection: "row" }}>
+                <Text style={{ flex: 1, padding: 5, color: "black" }}>{area}</Text>
+                {days.map((day) => (
+                  <Text key={day} style={{ flex: 1, padding: 5, color: "black" }}>
+                    {schedule[day]?.[area]}
+                  </Text>
+                ))}
+              </View>
+            ))}
+          </View>
+
+          <Text style={{ fontSize: 20, marginTop: 20, fontWeight: "bold", color: "black" }}>
+            Downstairs
           </Text>
-        ))}
-      </View>
-    ))}
-  </>
-)}
+
+          <View style={{ borderWidth: 1, marginTop: 10 }}>
+            <View style={{ flexDirection: "row", backgroundColor: "#ddd" }}>
+              <Text style={{ flex: 1, padding: 5, color: "black" }}>Area</Text>
+              {days.map((d) => (
+                <Text key={d} style={{ flex: 1, padding: 5, color: "black" }}>
+                  {d.slice(0, 3)}
+                </Text>
+              ))}
+            </View>
+
+            {["Kitchen", "Bathroom", "Hallway / Weightroom"].map((area) => (
+              <View key={area} style={{ flexDirection: "row" }}>
+                <Text style={{ flex: 1, padding: 5, color: "black" }}>{area}</Text>
+                {days.map((day) => (
+                  <Text key={day} style={{ flex: 1, padding: 5, color: "black" }}>
+                    {schedule[day]?.[area]}
+                  </Text>
+                ))}
+              </View>
+            ))}
+          </View>
+        </>
+      )}
     </ScrollView>
   );
 }
