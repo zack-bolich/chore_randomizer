@@ -5,13 +5,14 @@ import { generateSchedule } from "../../lib/choreGenerator";
 export default function Index() {
   const [schedule, setSchedule] = useState<any>({});
 
-  const people = ["Zack", "Person 2", "Person 3"];
+  const upstairsPeople = ["Frank", "Chris", "Martin", "Dakota", "Jackey", "Sean"];
+  const downstairsPeople = ["Adrian", "Steven", "Evan", "Jason", "Zack"];
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
   const handleGenerate = () => {
-    const result = generateSchedule(people);
-    setSchedule(result);
-  };
+  const result = generateSchedule(upstairsPeople, downstairsPeople);
+  setSchedule(result);
+};
 
   return (
     <ScrollView style={{ padding: 20, backgroundColor: "white" }}>
