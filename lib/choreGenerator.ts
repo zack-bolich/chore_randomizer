@@ -1,33 +1,29 @@
-export function generateSchedule(upstairs: string[], downstairs: string[]) {
-  const schedule: Record<string, Record<string, string>> = {};
-  const lastAssigned: Record<string, string> = {};
-
+export function generateSchedule(upstairsPeople: string[], downstairsPeople: string[]) {
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
   const upstairsAreas = ["Kitchen", "Bathroom", "Living Room"];
   const downstairsAreas = ["Kitchen", "Bathroom", "Hallway / Weightroom"];
 
+  const schedule: any = {};
+
   for (const day of days) {
-    schedule[day] = {};
+    schedule[day] = {
+      upstairs: {},
+      downstairs: {},
+    };
 
-    // Upstairs
     for (const area of upstairsAreas) {
-      const options = upstairs.filter((p) => p !== lastAssigned[area]);
-      const pool = options.length ? options : upstairs;
-      const chosen = pool[Math.floor(Math.random() * pool.length)];
+      const chosen =
+        upstairsPeople[Math.floor(Math.random() * upstairsPeople.length)];
 
-      schedule[day][area] = chosen;
-      lastAssigned[area] = chosen;
+      schedule[day].upstairs[area] = chosen;
     }
 
-    // Downstairs
     for (const area of downstairsAreas) {
-      const options = downstairs.filter((p) => p !== lastAssigned[area]);
-      const pool = options.length ? options : downstairs;
-      const chosen = pool[Math.floor(Math.random() * pool.length)];
+      const chosen =
+        downstairsPeople[Math.floor(Math.random() * downstairsPeople.length)];
 
-      schedule[day][area] = chosen;
-      lastAssigned[area] = chosen;
+      schedule[day].downstairs[area] = chosen;
     }
   }
 

@@ -50,7 +50,7 @@ export default function Index() {
                 <Text style={{ flex: 1, padding: 5, color: "black" }}>{area}</Text>
                 {days.map((day) => (
                   <Text key={day} style={{ flex: 1, padding: 5, color: "black" }}>
-                    {schedule[day]?.[area]}
+                    {schedule[day]?.upstairs?.[area]}
                   </Text>
                 ))}
               </View>
@@ -76,7 +76,7 @@ export default function Index() {
                 <Text style={{ flex: 1, padding: 5, color: "black" }}>{area}</Text>
                 {days.map((day) => (
                   <Text key={day} style={{ flex: 1, padding: 5, color: "black" }}>
-                    {schedule[day]?.[area]}
+                    {schedule[day]?.downstairs?.[area]}
                   </Text>
                 ))}
               </View>
