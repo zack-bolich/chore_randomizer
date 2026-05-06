@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, ScrollView, Text, View } from "react-native";
+import { Button, Image, ScrollView, Text, View } from "react-native";
 import { generateSchedule } from "../../lib/choreGenerator";
 
 export default function Index() {
@@ -10,9 +10,9 @@ export default function Index() {
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
   const handleGenerate = () => {
-  const result = generateSchedule(upstairsPeople, downstairsPeople);
-  setSchedule(result);
-};
+    const result = generateSchedule(upstairsPeople, downstairsPeople);
+    setSchedule(result);
+  };
 
   return (
     <ScrollView style={{ padding: 20, backgroundColor: "white" }}>
@@ -26,7 +26,16 @@ export default function Index() {
       >
         Weekly Chore Schedule
       </Text>
-
+      <Image
+        source={require("../../assets/images/header.png")}
+        style={{
+          width: "100%",
+          height: 260,
+          resizeMode: "contain",
+          alignSelf: "center",
+          marginBottom: 5,
+        }}
+      />
       <Button title="Generate Chores" onPress={handleGenerate} />
 
       {Object.keys(schedule).length > 0 && (
