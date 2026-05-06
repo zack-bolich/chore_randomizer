@@ -1,7 +1,21 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { generateSchedule } from "../../lib/choreGenerator";
 
+function getCurrentScheduleWeekKey() {
+  const now = new Date();
+
+  const sunday = new Date(now);
+  sunday.setDate(now.getDate() - now.getDay());
+  sunday.setHours(17, 0, 0, 0);
+
+  if (now < sunday) {
+    sunday.setDate(sunday.getDate() - 7);
+  }
+
+  return sunday.toISOString();
+}
 export default function Index() {
   const [schedule, setSchedule] = useState<any>({});
 
@@ -10,8 +24,26 @@ export default function Index() {
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
   useEffect(() => {
-    const result = generateSchedule(upstairsPeople, downstairsPeople);
-    setSchedule(result);
+    async function loadOrCreateSchedule() {
+      const savedSchedule = await AsyncStorage.getItem("weeklySchedule");
+      const savedWeekKey = await AsyncStorage.getItem("weeklyScheduleKey");
+
+      const currentWeekKey = getCurrentScheduleWeekKey();
+
+      if (savedSchedule && savedWeekKey === currentWeekKey) {
+        setSchedule(JSON.parse(savedSchedule));
+        return;
+      }
+
+      const newSchedule = generateSchedule(upstairsPeople, downstairsPeople);
+
+      await AsyncStorage.setItem("weeklySchedule", JSON.stringify(newSchedule));
+      await AsyncStorage.setItem("weeklyScheduleKey", currentWeekKey);
+
+      setSchedule(newSchedule);
+    }
+
+    loadOrCreateSchedule();
   }, []);
 
   return (
