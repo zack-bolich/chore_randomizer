@@ -1,4 +1,11 @@
-export function generateSchedule(upstairsPeople: string[], downstairsPeople: string[]) {
+function shuffle(list: string[]) {
+  return [...list].sort(() => Math.random() - 0.5);
+}
+
+export function generateSchedule(
+  upstairsPeople: string[],
+  downstairsPeople: string[]
+) {
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
   const upstairsAreas = ["Kitchen", "Bathroom", "Living Room"];
@@ -12,19 +19,16 @@ export function generateSchedule(upstairsPeople: string[], downstairsPeople: str
       downstairs: {},
     };
 
-    for (const area of upstairsAreas) {
-      const chosen =
-        upstairsPeople[Math.floor(Math.random() * upstairsPeople.length)];
+    const shuffledUpstairs = shuffle(upstairsPeople);
+    const shuffledDownstairs = shuffle(downstairsPeople);
 
-      schedule[day].upstairs[area] = chosen;
-    }
+    upstairsAreas.forEach((area, index) => {
+      schedule[day].upstairs[area] = shuffledUpstairs[index] || "";
+    });
 
-    for (const area of downstairsAreas) {
-      const chosen =
-        downstairsPeople[Math.floor(Math.random() * downstairsPeople.length)];
-
-      schedule[day].downstairs[area] = chosen;
-    }
+    downstairsAreas.forEach((area, index) => {
+      schedule[day].downstairs[area] = shuffledDownstairs[index] || "";
+    });
   }
 
   return schedule;
