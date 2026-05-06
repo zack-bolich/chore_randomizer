@@ -17,7 +17,59 @@ function getCurrentScheduleWeekKey() {
   return sunday.toISOString();
 }
 export default function Index() {
-  const [schedule, setSchedule] = useState<any>({});
+  const [schedule, setSchedule] = useState<any>({
+    Monday: {
+      upstairs: {
+        Kitchen: "Frank",
+        Bathroom: "Martin",
+        "Living Room": "Jackey",
+      },
+      downstairs: {
+        Kitchen: "Adrian",
+        Bathroom: "Evan",
+        "Hallway / Weightroom": "Zack",
+      },
+    },
+
+    Tuesday: {
+      upstairs: {
+        Kitchen: "Chris",
+        Bathroom: "Dakota",
+        "Living Room": "Sean",
+      },
+      downstairs: {
+        Kitchen: "Steven",
+        Bathroom: "Jason",
+        "Hallway / Weightroom": "Zack",
+      },
+    },
+
+    Thursday: {
+      upstairs: {
+        Kitchen: "Frank",
+        Bathroom: "Martin",
+        "Living Room": "Jackey",
+      },
+      downstairs: {
+        Kitchen: "Adrian",
+        Bathroom: "Evan",
+        "Hallway / Weightroom": "Zack",
+      },
+    },
+
+    Friday: {
+      upstairs: {
+        Kitchen: "Chris",
+        Bathroom: "Dakota",
+        "Living Room": "Sean",
+      },
+      downstairs: {
+        Kitchen: "Steven",
+        Bathroom: "Jason",
+        "Hallway / Weightroom": "Zack",
+      },
+    },
+  });
 
   const upstairsPeople = ["Frank", "Chris", "Martin", "Dakota", "Jackey", "Sean"];
   const downstairsPeople = ["Adrian", "Steven", "Evan", "Jason", "Zack"];
