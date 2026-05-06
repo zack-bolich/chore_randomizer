@@ -16,16 +16,7 @@ export default function Index() {
 
   return (
     <ScrollView style={{ padding: 20, backgroundColor: "white" }}>
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: "bold",
-          marginBottom: 10,
-          color: "black",
-        }}
-      >
-        Weekly Chore Schedule
-      </Text>
+    
       <Image
         source={require("../../assets/images/header.png")}
         style={{
