@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Image, ScrollView, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Image, ScrollView, Text, View } from "react-native";
 import { generateSchedule } from "../../lib/choreGenerator";
 
 export default function Index() {
@@ -9,14 +9,14 @@ export default function Index() {
   const downstairsPeople = ["Adrian", "Steven", "Evan", "Jason", "Zack"];
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
-  const handleGenerate = () => {
+  useEffect(() => {
     const result = generateSchedule(upstairsPeople, downstairsPeople);
     setSchedule(result);
-  };
+  }, []);
 
   return (
     <ScrollView style={{ padding: 20, backgroundColor: "white" }}>
-    
+
       <Image
         source={require("../../assets/images/header.png")}
         style={{
@@ -27,7 +27,7 @@ export default function Index() {
           marginBottom: 5,
         }}
       />
-      <Button title="Generate Chores" onPress={handleGenerate} />
+
 
       {Object.keys(schedule).length > 0 && (
         <>
