@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
-import { generateSchedule } from "../../lib/choreGenerator";
+import { generateSchedule } from "../lib/choreGenerator";
 
 function getCurrentScheduleWeekKey() {
   const now = new Date();
@@ -77,20 +77,49 @@ export default function Index() {
 
   useEffect(() => {
     async function loadOrCreateSchedule() {
+      
       const savedSchedule = await AsyncStorage.getItem("weeklySchedule");
       const savedWeekKey = await AsyncStorage.getItem("weeklyScheduleKey");
 
       const currentWeekKey = getCurrentScheduleWeekKey();
 
+      // USE SAVED WEEK
       if (savedSchedule && savedWeekKey === currentWeekKey) {
         setSchedule(JSON.parse(savedSchedule));
         return;
       }
 
-      const newSchedule = generateSchedule(upstairsPeople, downstairsPeople);
+      // FIRST TIME ONLY:
+      // keep your hardcoded initial state instead of generating immediately
+      if (!savedSchedule) {
+        await AsyncStorage.setItem(
+          "weeklySchedule",
+          JSON.stringify(schedule)
+        );
 
-      await AsyncStorage.setItem("weeklySchedule", JSON.stringify(newSchedule));
-      await AsyncStorage.setItem("weeklyScheduleKey", currentWeekKey);
+        await AsyncStorage.setItem(
+          "weeklyScheduleKey",
+          currentWeekKey
+        );
+
+        return;
+      }
+
+      // NEW WEEK → generate fresh schedule
+      const newSchedule = generateSchedule(
+        upstairsPeople,
+        downstairsPeople
+      );
+
+      await AsyncStorage.setItem(
+        "weeklySchedule",
+        JSON.stringify(newSchedule)
+      );
+
+      await AsyncStorage.setItem(
+        "weeklyScheduleKey",
+        currentWeekKey
+      );
 
       setSchedule(newSchedule);
     }
@@ -102,7 +131,7 @@ export default function Index() {
     <ScrollView style={{ padding: 20, backgroundColor: "white" }}>
 
       <Image
-        source={require("../../assets/images/header.png")}
+        source={require("../assets/images/header.png")}
         style={{
           width: "100%",
           height: 260,
