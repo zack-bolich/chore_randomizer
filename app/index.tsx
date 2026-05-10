@@ -71,7 +71,7 @@ export default function Index() {
     },
   });
 
-  const upstairsPeople = ["Frank", "Chris", "Martin", "Dakota", "Jackey", "Sean"];
+  const upstairsPeople = ["Frank", "Chris", "Dakota", "Jackey", "Sean"];
   const downstairsPeople = ["Steven", "Evan", "Jason", "Zack"];
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
