@@ -72,7 +72,7 @@ export default function Index() {
   });
 
   const upstairsPeople = ["Frank", "Chris", "Martin", "Dakota", "Jackey", "Sean"];
-  const downstairsPeople = ["Adrian", "Steven", "Evan", "Jason", "Zack"];
+  const downstairsPeople = ["Steven", "Evan", "Jason", "Zack"];
   const days = ["Monday", "Tuesday", "Thursday", "Friday"];
 
   useEffect(() => {
